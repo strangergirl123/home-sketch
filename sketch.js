@@ -1,12 +1,16 @@
+let value=0;
 function setup() {
     createCanvas(windowWidth, windowHeight);
     background('#dacbf2');
-    
+}
+
+function draw()
+{
     let length= 800;
     let width= 550;
     let xDis= 400;
     let yDis= 25;
-    
+  
     backdrop(xDis,yDis,length,width);
     airCon(xDis,yDis,width,length);
     light(xDis,yDis,length, width);
@@ -16,12 +20,13 @@ function setup() {
     holder(xDis,yDis,width);
     ruler();
     flower(xDis,yDis,width);
-    
+    sunlight();
+ 
 }
  
  //background of a/c    
 function backdrop(xDis,yDis,length, width){     
-        fill('black');
+        fill(mouseX,0,mouseY);
         rect(xDis, yDis, length, width);
     }
     
@@ -51,7 +56,8 @@ function backdrop(xDis,yDis,length, width){
         let cWidth=55;
         rect(xDis+120, yDis+width-150, cLength, cWidth);
         rect(xDis+100, yDis+width-140, cLength, cWidth);
-        quad(xDis+120, yDis+width-150, xDis+100, yDis+width-140, xDis+100+cLength, yDis+width-140, xDis+120+cLength, yDis+width-150);
+      
+        quad(xDis+120, yDis+width-150, xDis+100, yDis+width-140,     xDis+100+cLength, yDis+width-140, xDis+120+cLength, yDis+width-150);
         quad(xDis+100+cLength, yDis+width-140, xDis+120+cLength, yDis+width-150, xDis+120+cLength, yDis+width-95, xDis+100+cLength, yDis+width-85);
         fill('white');
         ellipse(xDis+127, yDis+width-110, 50, 40);
@@ -65,9 +71,18 @@ function backdrop(xDis,yDis,length, width){
         rect(xDis+263, yDis+width-50, 75,10);
         line(xDis+300, yDis+width-60, xDis+300,yDis+width-60+20);
     }
+
+ function sunlight(){
+        fill(255,255,0,frameCount%255);
+        rect(-220,50,800,50);
+	 			rect(-210,80,800,50);
+	 			rect(-200,110,800,50);
+	 			rect(-190,130,800,50);
+      }
  
     function airCon(xDis,yDis,width,length){
         fill('white');
+        stroke(51);
         rect(xDis+450, yDis+200, length/3, width/3);
         rect(xDis+460, yDis+220, length/5, width/5);
         line(xDis+460, yDis+240, xDis+460+length/5, yDis+240);
@@ -75,7 +90,7 @@ function backdrop(xDis,yDis,length, width){
         line(xDis+460, yDis+280, xDis+460+length/5, yDis+280);
         line(xDis+460, yDis+300, xDis+460+length/5, yDis+300);
         line(xDis+460, yDis+320, xDis+460+length/5, yDis+320);
-    
+        
         line(xDis+500, yDis+220, xDis+500, yDis+220+width/5);
         line(xDis+550, yDis+220, xDis+550, yDis+220+width/5);
     
@@ -86,9 +101,17 @@ function backdrop(xDis,yDis,length, width){
         line(xDis+630, yDis+300, xDis+630+length/10, yDis+300);
         line(xDis+630, yDis+320, xDis+630+length/10, yDis+320);
     
-        fill('black');
+				fill(value);
         rect(xDis+645, yDis+340, length/14, width/30);
     }
+
+		function mouseClicked() {
+  		if (value === 0) {
+    		value = 255;
+  		} else {
+    	value = 100;
+  		}
+}
     
     //ruler
     function ruler(){
@@ -98,13 +121,14 @@ function backdrop(xDis,yDis,length, width){
  
     //flower
     function flower(xDis,yDis,width){
+      var a=0;
         fill('white');
         rect(675, 400, 10, 135);
         fill('#f7b7d4')
         translate(xDis+275, (yDis+width)-170);
         noStroke();
         for (let i = 0; i < 10; i++) {
-            ellipse(0, 8, 50, 80);
+            ellipse(0, 8, 50, frameCount%270);
             rotate(PI/3);
         }
-    } 
+    }
